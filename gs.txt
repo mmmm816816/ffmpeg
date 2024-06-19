@@ -5,3 +5,135 @@ macros/
 s/
 AKfycbxovJ1nh7CLoWO0x_zziLeQ_Z2AM_E9hkhuUC60GoKPmaumkV89s9wMydZRHioIoIc1xQ/
 exec
+
+
+// firebase
+// script id: 1VUSl4b1r1eoNcRWotZM3e87ygkxvXltOgyDZhixqncz9lQ3MjfT1iKFw
+// test-c64fb-firebase-adminsdk-24kvv-c095803b32.json
+
+function getFirestoreData() {
+  // var certification = {
+  //   "email": "Your Project's Service Account", 
+  //   "key": "Your Secret Key",
+  //   "projectId": "Your Project ID"
+  // }
+  const certification = {
+    "type": "service_account",
+    "universe_domain": "googleapis.com"
+  }
+  let firestore = FirestoreApp.getFirestore(certification.client_email, certification.private_key, certification.project_id);
+  let data = firestore.getDocuments();
+  
+  /*
+// creating document
+const data = {
+  "name": "test!"
+}
+firestore.createDocument("FirstCollection", data);
+firestore.createDocument("FirstCollection/FirstDocument", data);
+
+// updating document
+firestore.updateDocument("FirstCollection/FirstDocument", data); // overwrite
+firestore.updateDocument("FirstCollection/FirstDocument", data, true);
+firestore.updateDocument("FirstCollection/FirstDocument", data, ["field1", "field2", "fieldN"]);
+
+// deleting documents
+firestore.deleteDocument("FirstCollection/FirstDocument");
+
+// getting documents
+const documentWithMetadata = firestore.getDocument("FirstCollection/FirstDocument");
+const allDocuments = firestore.getDocuments("FirstCollection");
+const someDocuments = firestore.getDocuments("FirstCollection", ["Doc1", "Doc2", "Doc3"]);
+
+// document properties
+const doc          = firestore.getDocument("My Collection/My Document");
+const originalData = doc.obj      // Original database object (your stored data)
+const readTime     = doc.read     // Date Object of the Read time from database
+const updateTime   = doc.updated  // Date Object of the Updated time from database
+const createdTime  = doc.created  // Date Object of the Created time from database
+const name         = doc.name     // Full document path (projects/projName/databases/(default)/documents/My Collection/My Document)
+const path         = doc.path     // Local document path (My Collection/My Document)
+
+// querying document
+const allDocumentsWithTest = firestore.query("FirstCollection").Where("name", "==", "Test!").Execute();
+// ==, <, contains, contains_any, in
+const allDocumentsNullNames = firestore.query("FirstCollection").Where("name", null).Execute();
+const allDocumentsNameAsc = firestore.query("FirstCollection").OrderBy("name").Execute();
+const allDocumentsNameDesc = firestore.query("FirstCollection").OrderBy("name", "desc").Execute();
+const documents2_3_4_5 = firestore.query("FirstCollection").Limit(4).Offset(2).Execute();
+const documents3_4_5_6 = firestore.query("FirstCollection").Range(3, 7).Execute();
+
+  */
+  
+  Logger.log(data);
+}
+
+
+
+
+// set object
+// https://tc39.es/proposal-set-methods/
+// https://github.com/tc39/proposal-set-methods
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set
+
+function unionedSet() {
+  const evens = new Set([2, 4, 6, 8]);
+  const squares = new Set([1, 4, 9]);
+  Logger.log(`union: ${[...evens.union(squares)]}`); // convert set to array to view values
+}
+
+function differentSet() {
+  const odds = new Set([1, 3, 5, 7, 9]);
+  const squares = new Set([1, 4, 9]);
+  Logger.log([...odds.difference(squares)]); // Set(3) { 3, 5, 7 }
+}
+
+
+Set.prototype.isSuperset = function (subset) {
+  for (var elem of subset) {
+    if (!this.has(elem)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+Set.prototype.union = function (setB) {
+  var union = new Set(this);
+  for (var elem of setB) {
+    union.add(elem);
+  }
+  return union;
+}
+
+Set.prototype.intersection = function (setB) {
+  var intersection = new Set();
+  for (var elem of setB) {
+    if (this.has(elem)) {
+      intersection.add(elem);
+    }
+  }
+  return intersection;
+}
+
+Set.prototype.difference = function (setB) {
+  var difference = new Set(this);
+  for (var elem of setB) {
+    difference.delete(elem);
+  }
+  return difference;
+}
+
+Set.prototype.isSubset = function (superset) {
+  for (var elem of this) {
+    if (!superset.has(elem)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+// Set.prototype.symmetricDifference
+// Set.prototype.isDisjointFrom
+
+
